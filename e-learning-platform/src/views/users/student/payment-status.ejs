@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+    <title>Pagamentos</title>
+     <script defer src="/public/js/main.js"></script>
+    <script defer src="/public/js/auth-check.js"></script>
+    <script defer src="/public/js/maintenance.js"></script>
+    <script defer src="/public/js/admin.js"></script>
+    <script defer src="/public/js/notifications.js"></script>
+    <script defer src="/public/js/notificationSocket.js"></script>
+    <script defer src="/public/js/otp-verification.js"></script>
+    <script defer src="/public/js/teacher-chat.js"></script>
+    <script defer src="/public/js/teacher.js"></script>
+       <link rel="stylesheet" href="/public/css/main.css">
+</head>
+<body>
+    <%- include('../../partials/header', { title: 'Status de Pagamento' }) %>
+
+<div class="container mx-auto px-4 py-8">
+<h1 class="text-2xl font-bold mb-6">Meus Pagamentos</h1>
+
+<div class="bg-white shadow rounded-lg overflow-hidden">
+<table class="min-w-full">
+<thead class="bg-gray-50">
+<tr>
+<th class="px-6 py-3">Curso</th>
+<th class="px-6 py-3">Valor</th>
+<th class="px-6 py-3">Método</th>
+<th class="px-6 py-3">Status</th>
+<th class="px-6 py-3">Data</th>
+</tr>
+</thead>
+<tbody>
+<% payments.forEach(payment => { %>
+<tr class="border-t">
+<td class="px-6 py-4"><%= payment.course.title %></td>
+<td class="px-6 py-4"><%= payment.amount.toFixed(2) %> Kz</td>
+<td class="px-6 py-4"><%= payment.method %></td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full text-xs 
+<%= payment.status === 'approved' ? 'bg-green-100 text-green-800' : 
+                    payment.status === 'rejected' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800' %>">
+<%= payment.status %>
+</span>
+</td>
+<td class="px-6 py-4"><%= helpers.formatDate(payment.createdAt) %></td>
+</tr>
+<% }) %>
+</tbody>
+</table>
+</div>
+</div>
+
+<%- include('../../partials/footer') %>
+
+</body>
+</html>

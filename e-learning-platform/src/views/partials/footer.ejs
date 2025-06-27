@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+       <link rel="stylesheet" href="/public/css/main.css">
+    <title>footer</title>
+</head>
+<body>
+    <footer class="bg-blue-800 text-white py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <!-- Área 1: Links Rápidos -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 border-b border-blue-700 pb-2">Links Rápidos</h3>
+        <ul class="space-y-2">
+          <li><a href="/" class="text-blue-200 hover:text-white transition">Início</a></li>
+          <li><a href="/about" class="text-blue-200 hover:text-white transition">Sobre Nós</a></li>
+          <li><a href="/courses" class="text-blue-200 hover:text-white transition">Cursos</a></li>
+          <li><a href="/teachers" class="text-blue-200 hover:text-white transition">Professores</a></li>
+          <li><a href="/contact" class="text-blue-200 hover:text-white transition">Contato</a></li>
+        </ul>
+      </div>
+      
+      <!-- Área 2: Políticas -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 border-b border-blue-700 pb-2">Políticas</h3>
+        <ul class="space-y-2">
+          <li>
+            <button onclick="showModal('privacy')" class="text-blue-200 hover:text-white transition text-left">
+              Política de Privacidade
+            </button>
+          </li>
+          <li>
+            <button onclick="showModal('terms')" class="text-blue-200 hover:text-white transition text-left">
+              Termos de Uso
+            </button>
+          </li>
+          <li>
+            <button onclick="showModal('company')" class="text-blue-200 hover:text-white transition text-left">
+              Política da Empresa
+            </button>
+          </li>
+          <li>
+            <button onclick="showModal('cookies')" class="text-blue-200 hover:text-white transition text-left">
+              Política de Cookies
+            </button>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Área 3: Sites Parceiros -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 border-b border-blue-700 pb-2">Parceiros</h3>
+        <!-- No template do footer, substitua a lista estática por: -->
+<ul class="space-y-2">
+  <% partners.forEach(partner => { %>
+    <li>
+      <a href="<%= partner.url %>" target="_blank" rel="noopener" 
+         class="text-blue-200 hover:text-white transition"
+         title="<%= partner.description %>">
+        <%= partner.name %>
+      </a>
+    </li>
+  <% }); %>
+</ul>
+
+
+        <ul class="space-y-2">
+          <li>
+            <a href="https://www.parceiro1.com" target="_blank" rel="noopener" 
+               class="text-blue-200 hover:text-white transition">
+             Ponto Criativo
+            </a>
+          </li>
+          <li>
+            <a href="https://www.parceiro2.com" target="_blank" rel="noopener" 
+               class="text-blue-200 hover:text-white transition">
+              Ponto Ecológico
+            </a>
+          </li>
+          <li>
+            <a href="https://www.parceiro3.com" target="_blank" rel="noopener" 
+               class="text-blue-200 hover:text-white transition">
+              Plataforma de Certificação
+            </a>
+          </li>
+          <li>
+            <a href="https://www.parceiro4.com" target="_blank" rel="noopener" 
+               class="text-blue-200 hover:text-white transition">
+              Recursos Educacionais
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Área 4: Contato -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 border-b border-blue-700 pb-2">Contato</h3>
+        <div class="space-y-3">
+          <div class="flex items-start">
+            <i class="fas fa-envelope mt-1 mr-2 text-blue-200"></i>
+            <a href="mailto:educahome01@gmail.com" class="text-blue-200 hover:text-white transition">
+              educahome01@gmail.com
+            </a>
+          </div>
+          <div class="flex items-start">
+            <i class="fas fa-phone-alt mt-1 mr-2 text-blue-200"></i>
+            <a href="tel:+244123456789" class="text-blue-200 hover:text-white transition">
+              +244 933 438 482
+            </a>
+          </div>
+          <div class="flex items-start">
+            <i class="fas fa-headset mt-1 mr-2 text-blue-200"></i>
+            <span class="text-blue-200">Linha de Apoio: +244 933 438 482</span>
+          </div>
+          
+          <div class="pt-2">
+            <h4 class="font-medium mb-2">Redes Sociais</h4>
+            <div class="flex space-x-4">
+              <a href="https://https://www.facebook.com/share/1HEjzDP9HA/?mibextid=LQQJ4d" target="_blank" rel="noopener" 
+                 class="text-blue-200 hover:text-white text-xl transition">
+                <i class="fab fa-facebook"></i>
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener" 
+                 class="text-blue-200 hover:text-white text-xl transition">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="https://https://www.instagram.com/educahome01?igsh=b3Vrb2R0YzJzMzY2&utm_source=qr
+
+" target="_blank" rel="noopener" 
+                 class="text-blue-200 hover:text-white text-xl transition">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener" 
+                 class="text-blue-200 hover:text-white text-xl transition">
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener" 
+                 class="text-blue-200 hover:text-white text-xl transition">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Copyright -->
+    <div class="border-t border-blue-700 mt-8 pt-6 text-center text-blue-300">
+      <p>&copy; 2025 EducaHome Todos os direitos reservados.</p>
+      <p>Desenvolvido por &copy; Ponto Criativo - Dev</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Modals para as Políticas -->
+<div id="privacy-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg max-w-4xl w-full max-h-screen overflow-y-auto">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold">Política de Privacidade</h3>
+        <button onclick="hideModal('privacy')" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="prose max-w-none">
+        <!-- Conteúdo da política de privacidade -->
+        <h4>1. Informações Coletadas</h4>
+        <p>Coletamos informações quando você se registra em nosso site, acessa sua conta, faz uma compra, participa de um concurso e/ou quando você sai. As informações coletadas incluem seu nome, e-mail, número de telefone e/ou cartão de crédito.</p>
+        
+        <h4>2. Uso das Informações</h4>
+        <p>Todas as informações que coletamos podem ser usadas para: Personalizar sua experiência e responder às suas necessidades individuais; Fornecer conteúdo publicitário personalizado; Melhorar nosso site; Melhorar o atendimento ao cliente e suas necessidades de suporte; Entrar em contato com você por e-mail; Administrar um concurso, promoção ou pesquisa. </p>
+
+        <h4>3. Segurança </h4>
+        <p>Não compartilhamos dados com terceiros, exceto quando necessário para aulas presenciais ou por obrigação legal.</p>
+        <p>Adotamos medidas de segurança como criptografia e controle de acesso. O usuário pode solicitar correção ou exclusão de seus dados a qualquer momento. O uso da plataforma implica aceitação desta política.</p>
+        
+        <!-- Continue com o restante do conteúdo -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="terms-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg max-w-4xl w-full max-h-screen overflow-y-auto">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold">Termos de Uso</h3>
+        <button onclick="hideModal('terms')" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="prose max-w-none">
+        <!-- Conteúdo dos termos de uso -->
+        <h4>1. Aceitação dos Termos</h4>
+        <p>Ao acessar e usar este site, você aceita e concorda em ficar vinculado pelos termos e disposições deste acordo. Além disso, ao usar esses Termos de Serviço particulares, você concorda em obedecer a quaisquer diretrizes ou regras adicionais aplicáveis a serviços ou recursos publicados neste site.O usuário deve fornecer informações verdadeiras, manter a segurança da conta e usar os serviços de forma legal e ética.</p>
+        
+        
+        <h4>2. Uso do Site</h4>
+        <p>Você concorda em não usar o site para fins ilícitos e será responsável por qualquer conduta que viole leis ou regulamentos aplicáveis. Você concorda em não reproduzir, duplicar, copiar, vender, revender ou explorar qualquer parte do site sem nossa permissão expressa por escrito.</p>
+
+        <h4>3. Aulas presenciais</h4>
+        <p> O agendamento de aulas presenciais depende da disponibilidade. Cancelamentos devem ser feitos com antecedência de 24h. Os conteúdos da plataforma são protegidos por direitos autorais.<br><br>
+        A plataforma pode alterar estes termos, e o uso contínuo implica aceitação das mudanças.</p>
+        <!-- Continue com o restante do conteúdo -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="terms-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg max-w-4xl w-full max-h-screen overflow-y-auto">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold">Política da Empresa</h3>
+        <button onclick="hideModal('terms')" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="prose max-w-none">
+        <!-- Conteúdo da politica de empresa-->
+    
+        <p>A EducaHome é uma plataforma dedicada a oferecer educação de qualidade através de aulas online e presenciais. Nosso compromisso é com a transparência, ética e respeito aos direitos dos usuários. Trabalhamos para garantir uma experiência segura e enriquecedora para todos os alunos.<br><br></p>
+        
+        
+        <p> Estamos sempre abertos a feedbacks e sugestões para melhorar nossos serviços. Agradecemos por escolher a EducaHome como sua plataforma de aprendizado.</p>
+
+        
+        <!-- Continue com o restante do conteúdo -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Adicione modais semelhantes para 'company' e 'cookies' -->
+
+<script>
+  // Funções para mostrar/esconder modais
+  function showModal(id) {
+    document.getElementById(`${id}-modal`).classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+  }
+  
+  function hideModal(id) {
+    document.getElementById(`${id}-modal`).classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
+  
+  // Fechar modal ao pressionar ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const openModal = document.querySelector('.modal:not(.hidden)');
+      if (openModal) {
+        const modalId = openModal.id.replace('-modal', '');
+        hideModal(modalId);
+      }
+    }
+  });
+</script>
+</body>
+</html>

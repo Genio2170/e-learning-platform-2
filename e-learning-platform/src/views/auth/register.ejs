@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+       <link rel="stylesheet" href="/public/css/main.css">
+    <title>Cadastro</title>
+     <script defer src="/public/js/main.js"></script>
+    <script defer src="/public/js/auth-check.js"></script>
+    <script defer src="/public/js/maintenance.js"></script>
+    <script defer src="/public/js/admin.js"></script>
+    <script defer src="/public/js/notifications.js"></script>
+    <script defer src="/public/js/notificationSocket.js"></script>
+    <script defer src="/public/js/otp-verification.js"></script>
+    <script defer src="/public/js/teacher-chat.js"></script>
+    <script defer src="/public/js/teacher.js"></script>
+</head>
+<body>
+    <%- include('../partials/header', { pageTitle: 'Registro' }) %>
+
+<div class="min-h-screen bg-gray-50 py-12 px-4">
+  <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold text-center mb-6">Criar Nova Conta</h2>
+    
+    <form action="/auth/register" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Dados Pessoais -->
+      <div class="col-span-2">
+        <h3 class="text-lg font-medium border-b pb-2 mb-4">Dados Pessoais</h3>
+      </div>
+
+      <div>
+        <label for="fullName" class="block text-sm font-medium text-gray-700">Nome Completo *</label>
+        <input
+          type="text"
+          id="fullName"
+          name="fullName"
+          required
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        >
+      </div>
+
+      <div>
+        <label for="idNumber" class="block text-sm font-medium text-gray-700">Nº Bilhete de Identidade *</label>
+        <input
+          type="text"
+          id="idNumber"
+          name="idNumber"
+          required
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        >
+      </div>
+
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700">Telefone *</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          required
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          placeholder="+244 123 456 789"
+        >
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">E-mail *</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        >
+      </div>
+
+      <div>
+        <label for="address" class="block text-sm font-medium text-gray-700">Morada *</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          required
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        >
+      </div>
+
+      <div>
+        <label for="class" class="block text-sm font-medium text-gray-700">Classe *</label>
+        <select
+          id="class"
+          name="class"
+          required
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        >
+          <option value="">Selecione...</option>
+          <option value="student">Estudante</option>
+          <!-- <option value="teacher">Professor</option> -->
+          <option value="parent">Encarregado</option>
+        </select>
+      </div>
+
+      <!-- Foto e Serviço -->
+      <div class="col-span-2">
+        <h3 class="text-lg font-medium border-b pb-2 mb-4">Documentos</h3>
+      </div>
+
+      <div>
+        <label for="photo" class="block text-sm font-medium text-gray-700">Foto (Tipo Passe) *</label>
+        <input
+          type="file"
+          id="photo"
+          name="photo"
+          accept="image/*"
+          required
+          class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+        >
+      </div>
+
+      <div>
+        <label for="service" class="block text-sm font-medium text-gray-700">Serviço Solicitado *</label>
+        <select
+          id="service"
+          name="service"
+          required
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        >
+          <option value="">Selecione...</option>
+          <option value="courses">Cursos Online</option>
+          <option value="tutoring">Aulas Particulares</option>
+          <option value="consulting">Consultoria Educacional</option>
+        </select>
+      </div>
+
+      <!-- Termos e Submissão -->
+      <div class="col-span-2">
+        <div class="flex items-center">
+          <input
+            id="terms"
+            name="terms"
+            type="checkbox"
+            required
+            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+          >
+          <label for="terms" class="ml-2 block text-sm text-gray-700">
+            Concordo com os <a href="/terms" class="text-blue-600 hover:text-blue-500">Termos de Serviço</a> e <a href="/privacy" class="text-blue-600 hover:text-blue-500">Política de Privacidade</a>
+          </label>
+        </div>
+      </div>
+
+      <div class="col-span-2">
+        <button
+          type="submit"
+          class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Registrar Conta
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
+</body>
+</html>

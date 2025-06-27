@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+    <title>Moderação</title>
+    <script src="https://cdn.socket.io/admin-ui/0.7.1/bundle.js"></script>
+</head>
+<body>
+  <%- include('../../partials/admin-header') %>
+
+<div class="container mx-auto px-4 py-8">
+<h1 class="text-2xl font-bold mb-6">Moderação de Conteúdo</h1>
+
+<div class="bg-white shadow rounded-lg overflow-hidden">
+<table class="min-w-full">
+<thead class="bg-gray-50">
+<tr>
+<th class="px-6 py-3">Título</th>
+<th class="px-6 py-3">Autor</th>
+<th class="px-6 py-3">Tipo</th>
+<th class="px-6 py-3">Ações</th>
+</tr>
+</thead>
+<tbody>
+<% contents.forEach(content => { %>
+<tr class="border-t">
+<td class="px-6 py-4"><%= content.title %></td>
+<td class="px-6 py-4"><%= content.createdBy.name %></td>
+<td class="px-6 py-4"><%= content.type %></td>
+<td class="px-6 py-4 space-x-2">
+<a href="/admin/content/<%= content._id %>/approve"
+                 class="text-green-600 hover:text-green-800">Aprovar</a>
+<a href="/admin/content/<%= content._id %>/reject"
+                 class="text-red-600 hover:text-red-800">Rejeitar</a>
+</td>
+</tr>
+<% }) %>
+</tbody>
+</table>
+</div>
+</div>
+
+<%- include('../../partials/footer') %>
+  
+</body>
+</html>

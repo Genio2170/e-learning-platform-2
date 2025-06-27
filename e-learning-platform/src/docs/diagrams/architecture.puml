@@ -1,0 +1,17 @@
+@startuml
+component "Frontend" as front {
+  [Angular]
+  [EJS Views]
+}
+
+component "Backend" as back {
+  [Node.js]
+  [Express]
+  [Mongoose]
+}
+
+database "MongoDB" as mongo
+
+front --> back : API REST
+back --> mongo : Queries
+@enduml

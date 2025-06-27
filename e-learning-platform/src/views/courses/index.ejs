@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+       <link rel="stylesheet" href="/public/css/main.css">
+    <title>Curso</title>
+     <script defer src="/public/js/main.js"></script>
+    <script defer src="/public/js/auth-check.js"></script>
+    <script defer src="/public/js/maintenance.js"></script>
+    <script defer src="/public/js/admin.js"></script>
+    <script defer src="/public/js/notifications.js"></script>
+    <script defer src="/public/js/notificationSocket.js"></script>
+    <script defer src="/public/js/otp-verification.js"></script>
+    <script defer src="/public/js/teacher-chat.js"></script>
+    <script defer src="/public/js/teacher.js"></script>
+</head>
+<body>
+    <%- include('../partials/header', { currentPage: 'courses' }) %>
+
+<main class="container mx-auto px-4 py-8">
+  <!-- Cabeçalho -->
+  <div class="text-center mb-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-4">Nossos Cursos</h1>
+    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Aprenda com os melhores especialistas em diversas áreas do conhecimento</p>
+  </div>
+
+  <!-- Filtros e Busca -->
+  <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+    <div class="flex flex-col md:flex-row gap-4">
+      <div class="flex-1">
+        <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Área</label>
+        <select id="category" class="w-full border border-gray-300 rounded-md px-3 py-2">
+          <option value="">Todas as Áreas</option>
+          <% categories.forEach(category => { %>
+            <option value="<%= category._id %>"><%= category.name %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="flex-1">
+        <label for="subcategory" class="block text-sm font-medium text-gray-700 mb-1">Disciplina</label>
+        <select id="subcategory" class="w-full border border-gray-300 rounded-md px-3 py-2">
+          <option value="">Todas as Disciplinas</option>
+        </select>
+      </div>
+      <div class="flex-1">
+        <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Buscar</label>
+        <div class="relative">
+          <input type="text" id="search" placeholder="Pesquisar cursos..." class="w-full border border-gray-300 rounded-md px-3 py-2 pl-10">
+          <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cursos por Área -->
+  <% categories.forEach(category => { %>
+    <section class="mb-12">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800"><%= category.name %></h2>
+        <a href="/courses/category/<%= category._id %>" class="text-blue-600 hover:text-blue-800 font-medium">Ver Tudo</a>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% category.courses.slice(0, 3).forEach(course => { %>
+          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+            <!-- Banner do Curso -->
+            <div class="relative h-48">
+              <% if (course.promoVideo) { %>
+                <div class="video-thumbnail relative h-full">
+                  <img src="<%= course.thumbnail %>" alt="<%= course.title %>" class="w-full h-full object-cover">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <button class="play-button bg-blue-600 bg-opacity-80 text-white rounded-full w-16 h-16 flex items-center justify-center hover:bg-opacity-100 transition">
+                      <i class="fas fa-play text-xl"></i>
+                    </button>
+                  </div>
+                </div>
+              <% } else { %>
+                <img src="<%= course.thumbnail %>" alt="<%= course.title %>" class="w-full h-full object-cover">
+              <% } %>
+              
+              <% if (course.isNew) { %>
+                <div class="absolute top-2 left-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
+                  NOVO
+                </div>
+              <% } %>
+            </div>
+            
+            <!-- Detalhes do Curso -->
+            <div class="p-6">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-bold text-lg"><%= course.title %></h3>
+                <% if (user && user.coursesEnrolled.includes(course._id.toString())) { %>
+                  <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">INSCRITO</span>
+                <% } %>
+              </div>
+              
+              <p class="text-gray-600 text-sm mb-4"><%= course.shortDescription %></p>
+              
+              <div class="flex items-center mb-4">
+                <div class="flex text-yellow-400 mr-2">
+                  <% for (let i = 0; i < 5; i++) { %>
+                    <i class="fas fa-star<%= i >= course.averageRating ? '-half-alt' : '' %>"></i>
+                  <% } %>
+                </div>
+                <span class="text-gray-600 text-sm">(<%= course.reviewsCount %>)</span>
+              </div>
+              
+              <div class="flex justify-between items-center">
+                <div>
+                  <% if (course.discountPrice) { %>
+                    <span class="text-gray-500 line-through text-sm">$<%= course.price %></span>
+                    <span class="font-bold text-blue-600 ml-2">$<%= course.discountPrice %></span>
+                  <% } else { %>
+                    <span class="font-bold text-blue-600">$<%= course.price %></span>
+                  <% } %>
+                </div>
+                
+                <% if (!user || !user.coursesEnrolled.includes(course._id.toString())) { %>
+                  <a href="/courses/<%= course._id %>" class="text-blue-600 hover:text-blue-800 font-medium">Detalhes</a>
+                <% } else { %>
+                  <a href="/courses/learn/<%= course._id %>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm">
+                    Continuar
+                  </a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </section>
+  <% }); %>
+
+  <!-- Modal de Vídeo Promocional -->
+  <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg w-full max-w-4xl">
+      <div class="p-4 flex justify-between items-center border-b">
+        <h3 class="text-lg font-bold">Vídeo Promocional</h3>
+        <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="p-4">
+        <div class="aspect-w-16 aspect-h-9">
+          <iframe id="videoFrame" class="w-full h-96" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>
+
+<!-- Scripts específicos da página -->
+<script>
+  // Filtro de subcategorias
+  document.getElementById('category').addEventListener('change', function() {
+    const categoryId = this.value;
+    const subcategorySelect = document.getElementById('subcategory');
+    
+    // Limpar opções existentes
+    subcategorySelect.innerHTML = '<option value="">Todas as Disciplinas</option>';
+    
+    if (categoryId) {
+      // Buscar subcategorias via AJAX
+      fetch(`/api/categories/${categoryId}/subcategories`)
+        .then(response => response.json())
+        .then(subcategories => {
+          subcategories.forEach(subcategory => {
+            const option = document.createElement('option');
+            option.value = subcategory._id;
+            option.textContent = subcategory.name;
+            subcategorySelect.appendChild(option);
+          });
+        });
+    }
+  });
+
+  // Controle do modal de vídeo
+  document.querySelectorAll('.play-button').forEach(button => {
+    button.addEventListener('click', function() {
+      const courseId = this.closest('.video-thumbnail').dataset.courseId;
+      const videoModal = document.getElementById('videoModal');
+      const videoFrame = document.getElementById('videoFrame');
+      
+      // Buscar URL do vídeo
+      fetch(`/api/courses/${courseId}/promo-video`)
+        .then(response => response.json())
+        .then(data => {
+          videoFrame.src = data.videoUrl;
+          videoModal.classList.remove('hidden');
+          document.body.classList.add('overflow-hidden');
+        });
+    });
+  });
+
+  document.getElementById('closeModal').addEventListener('click', function() {
+    const videoModal = document.getElementById('videoModal');
+    const videoFrame = document.getElementById('videoFrame');
+    
+    videoFrame.src = '';
+    videoModal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+       <link rel="stylesheet" href="/public/css/main.css">
+    <title>protected-content</title>
+</head>
+<body>
+   <!-- views/partials/protected-content.ejs -->
+<% if (user) { %>
+  <!-- Conteúdo para usuários logados -->
+  <div class="featured-courses">
+    <h3>Cursos em Destaque</h3>
+    <% featuredCourses.forEach(course => { %>
+      <div class="course-card">
+        <img src="<%= course.thumbnail %>" alt="<%= course.title %>">
+        <h4><%= course.title %></h4>
+        <p><%= course.description %></p>
+        <a href="/courses/<%= course._id %>" class="btn">Acessar Curso</a>
+      </div>
+    <% }); %>
+  </div>
+<% } else { %>
+  <!-- Conteúdo para visitantes -->
+  <div class="bg-blue-50 p-6 rounded-lg text-center">
+    <h3 class="text-xl font-medium text-blue-800">Conteúdo Exclusivo para Membros</h3>
+    <p class="mt-2 text-blue-700">Faça login ou cadastre-se para acessar nossos cursos e professores</p>
+    <div class="mt-6 space-x-4">
+      <a href="/auth/login" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">
+        Fazer Login
+      </a>
+      <a href="/auth/register" class="bg-white text-blue-600 px-6 py-2 rounded-md border border-blue-600 hover:bg-blue-50">
+        Cadastre-se
+      </a>
+    </div>
+  </div>
+<% } %>
+ 
+</body>
+</html>

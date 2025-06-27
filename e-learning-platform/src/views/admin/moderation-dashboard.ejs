@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.socket.io/admin-ui/0.7.1/bundle.js"></script>
+    <title>Painel de moderação</title>
+</head>
+<body>
+    <div class="moderation-grid">
+<!-- Seção 1: Fila de Revisão -->
+<div class="pending-queue">
+<h3>Cursos Pendentes (<%= data.pendingReviews.length %>)</h3>
+<% data.pendingReviews.forEach(review => { %>
+<div class="review-item" data-course="<%= review.courseId._id %>">
+<h4><%= review.courseId.title %></h4>
+<p>Submetido em: <%= new Date(review.createdAt).toLocaleString() %></p>
+<button class="start-review-btn" data-review="<%= review._id %>">
+          Iniciar Revisão
+</button>
+</div>
+<% }); %>
+</div>
+
+<!-- Seção 2: Estatísticas -->
+<div class="stats-card">
+<h3>Métricas</h3>
+<div class="metric">
+<span class="label">Tempo Médio:</span>
+<span class="value"><%= (data.stats.avgTime / 3600000).toFixed(1) %> horas</span>
+</div>
+<div class="metric">
+<span class="label">Taxa de Rejeição:</span>
+<span class="value"><%= (data.stats.rejectionRate * 100).toFixed(1) %>%</span>
+</div>
+</div>
+
+<!-- Seção 3: Atividade dos Revisores -->
+<div class="reviewers-activity">
+<h3>Atividade dos Revisores</h3>
+<table>
+<% data.reviewersActivity.forEach(reviewer => { %>
+<tr>
+<td><%= reviewer.name %></td>
+<td><%= reviewer.openReviews %> pendentes</td>
+<td><%= reviewer.lastActivity ? new Date(reviewer.lastActivity).toLocaleDateString() : 'Nunca' %></td>
+</tr>
+<% }); %>
+</table>
+</div>
+</div>
+
+<script>
+  document.querySelectorAll('.start-review-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      window.location.href = `/reviews/${btn.dataset.review}`;
+    });
+  });
+</script>
+
+</body>
+</html>

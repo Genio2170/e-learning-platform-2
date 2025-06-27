@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+    <title>Inicio - EducaHome</title>
+    <script defer src="/public/js/main.js"></script>
+    <script defer src="/public/js/auth-check.js"></script>
+    <script defer src="/public/js/maintenance.js"></script>
+    <script defer src="/public/js/admin.js"></script>
+    <script defer src="/public/js/notifications.js"></script>
+    <script defer src="/public/js/notificationSocket.js"></script>
+    <script defer src="/public/js/otp-verification.js"></script>
+    <script defer src="/public/js/teacher-chat.js"></script>
+    <script defer src="/public/js/teacher.js"></script>
+    <link rel="stylesheet" href="/public/css/main.css">
+</head>
+<body>
+    <%- include('partials/header', { title: 'EducaHome', 
+  homePage: true 
+currentPage: 'home' }) %>
+
+<main class="container mx-auto px-4 py-8">
+  <!-- Banner Institucional -->
+  <section class="relative mb-12 rounded-xl overflow-hidden">
+    <div class="relative h-96">
+      <img src="/public/images/bane.jpg" alt="Banner Institucional" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-blue-900 opacity-50"></div>
+      <div class="absolute inset-0 flex items-center justify-center text-center px-4">
+        <div class="max-w-3xl">
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">EducaHome, Transformando Educação com Tecnologia</h1>
+          <p class="text-xl text-blue-100 mb-6">Aprenda com os melhores professores em nossa plataforma interativa</p>
+          <% if (!user) { %>
+            <a href="/auth/register" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">
+              Comece Agora
+            </a>
+          <% } else { %>
+            <a href="/courses" class="inline-block bg-white hover:bg-blue-50 text-blue-600 font-bold py-3 px-8 rounded-lg text-lg transition duration-300">
+              Explorar Cursos
+            </a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Hero Section -->
+<section class="bg-blue-600 text-white py-20">
+<div class="container mx-auto px-4 text-center">
+<h1 class="text-4xl md:text-5xl font-bold mb-6">Aprenda sem limites</h1>
+<p class="text-xl mb-8 max-w-2xl mx-auto">Cursos online com especialistas em diversas áreas do conhecimento</p>
+
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<% if (!user) { %>
+<a href="/auth/register" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-blue-50 transition">
+          Comece agora
+</a>
+<a href="/auth/login" class="bg-transparent border-2 border-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition">
+          Entrar
+</a>
+<% } else { %>
+<a href="<%= user.role === 'student' ? '/students/dashboard' : '/teachers/dashboard' %>"
+           class="bg-yellow-400 text-gray-900 px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition">
+          Meu Painel
+</a>
+<% } %>
+</div>
+</div>	
+</section>
+
+
+<!-- Cursos em Destaque -->
+<section class="py-16 bg-gray-50">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl font-bold mb-12 text-center">Cursos Populares</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<% featuredCourses.forEach(course => { %>
+<div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+<img src="<%= course.thumbnail || '/images/course-default.jpg' %>"
+               alt="<%= course.title %>"
+               class="w-full h-48 object-cover">
+
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold"><%= course.title %></h3>
+<span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+<%= course.category %>
+</span>
+</div>
+
+<p class="text-gray-600 mb-4 line-clamp-2"><%= course.description %></p>
+
+<div class="flex items-center justify-between">
+<span class="font-bold text-lg"><%= course.price.toLocaleString('pt-BR', { style: 'currency', currency: 'AOA' }) %></span>
+<a href="/courses/<%= course._id %>"
+                 class="text-blue-600 hover:text-blue-800 font-medium">
+                Ver detalhes →
+</a>
+</div>
+</div>
+</div>
+<% }) %>
+</div>
+
+<div class="text-center mt-10">
+<a href="/courses" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+        Explorar todos os cursos
+</a>
+</div>
+
+
+  <!-- Cursos em Promoção -->
+  <section class="mb-16">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Cursos em Promoção</h2>
+      <a href="/courses" class="text-blue-600 hover:text-blue-800 font-medium">Ver Todos</a>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <% featuredCourses.forEach(course => { %>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+          <div class="relative h-48">
+            <img src="<%= course.thumbnail %>" alt="<%= course.title %>" class="w-full h-full object-cover">
+            <% if (course.discountPrice) { %>
+              <div class="absolute top-2 right-2 bg-red-600 text-white text-sm font-bold px-2 py-1 rounded">
+                PROMOÇÃO
+              </div>
+            <% } %>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-2"><%= course.title %></h3>
+            <div class="flex items-center mb-3">
+              <div class="flex text-yellow-400 mr-2">
+                <% for (let i = 0; i < 5; i++) { %>
+                  <i class="fas fa-star<%= i >= course.averageRating ? '-half-alt' : '' %>"></i>
+                <% } %>
+              </div>
+              <span class="text-gray-600 text-sm"><%= course.reviewsCount %> avaliações</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <% if (course.discountPrice) { %>
+                  <span class="text-gray-500 line-through mr-2">$<%= course.price %></span>
+                  <span class="font-bold text-blue-600">$<%= course.discountPrice %></span>
+                <% } else { %>
+                  <span class="font-bold text-blue-600">$<%= course.price %></span>
+                <% } %>
+              </div>
+              <a href="/courses/<%= course._id %>" class="text-blue-600 hover:text-blue-800 font-medium">Detalhes</a>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </section>
+
+  <!-- Diferenciais -->
+<section class="py-16">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl font-bold mb-12 text-center">Por que escolher a EducaHome?</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="text-center p-6">
+<div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+<i class="fas fa-chalkboard-teacher text-blue-600 text-2xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-2">Professores especialistas</h3>
+<p class="text-gray-600">Aprenda com profissionais atuantes no mercado</p>
+</div>
+
+<div class="text-center p-6">
+<div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+<i class="fas fa-certificate text-blue-600 text-2xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-2">Certificação reconhecida</h3>
+<p class="text-gray-600">Certificados válidos em todo território nacional</p>
+</div>
+
+<div class="text-center p-6">
+<div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+<i class="fas fa-headset text-blue-600 text-2xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-2">Suporte 24/7</h3>
+<p class="text-gray-600">Nossa equipe está sempre disponível para ajudar</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Depoimentos -->
+<section class="py-16 bg-gray-50">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl font-bold mb-12 text-center">O que nossos alunos dizem</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<% testimonials.forEach(testimonial => { %>
+<div class="bg-white p-6 rounded-lg shadow">
+<div class="flex items-center mb-4">
+<img src="<%= testimonial.photo %>"
+                 alt="<%= testimonial.name %>"
+                 class="w-12 h-12 rounded-full mr-4">
+<div>
+<h4 class="font-bold"><%= testimonial.name %></h4>
+<p class="text-gray-600 text-sm"><%= testimonial.course %></p>
+</div>
+</div>
+<p class="text-gray-700">"<%= testimonial.text %>"</p>
+<div class="mt-3 text-yellow-400">
+<% for (let i = 0; i < testimonial.rating; i++) { %>
+<i class="fas fa-star"></i>
+<% } %>
+</div>
+</div>
+<% }) %>
+</div>
+</div>
+</section>
+
+  <!-- Depoimentos de Alunos -->
+  <section class="mb-16 bg-blue-50 rounded-xl p-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">O que nossos alunos dizem</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <% testimonials.forEach(testimonial => { %>
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+          <div class="flex items-center mb-4">
+            <img src="<%= testimonial.student.photo || '/images/default-avatar.jpg' %>" 
+                 alt="<%= testimonial.student.name %>" 
+                 class="w-12 h-12 rounded-full object-cover mr-4">
+            <div>
+              <h4 class="font-bold"><%= testimonial.student.name %></h4>
+              <p class="text-gray-600 text-sm"><%= testimonial.course %></p>
+            </div>
+          </div>
+          <div class="text-gray-700 mb-4">
+            <p>"<%= testimonial.content %>"</p>
+          </div>
+          <div class="flex text-yellow-400">
+            <% for (let i = 0; i < testimonial.rating; i++) { %>
+              <i class="fas fa-star"></i>
+            <% } %>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </section>
+
+  <!-- Feed de Postagens (Estilo Rede Social) -->
+  <section class="mb-16">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Comunidade Ativa</h2>
+    
+    <div class="max-w-2xl mx-auto">
+      <% posts.forEach(post => { %>
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+          <div class="flex items-center mb-4">
+            <img src="<%= post.author.photo || '/images/default-avatar.jpg' %>" 
+                 alt="<%= post.author.name %>" 
+                 class="w-10 h-10 rounded-full object-cover mr-3">
+            <div>
+              <h4 class="font-bold"><%= post.author.name %></h4>
+              <p class="text-gray-500 text-sm"><%= new Date(post.createdAt).toLocaleDateString() %></p>
+            </div>
+          </div>
+          
+          <p class="text-gray-700 mb-4"><%= post.content %></p>
+          
+          <% if (post.image) { %>
+            <img src="<%= post.image %>" alt="Post image" class="w-full rounded mb-4">
+          <% } %>
+          
+          <div class="flex justify-between text-gray-500 border-t border-gray-100 pt-3">
+            <button class="flex items-center hover:text-blue-600">
+              <i class="far fa-thumbs-up mr-1"></i>
+              <span><%= post.likes %></span>
+            </button>
+            <button class="flex items-center hover:text-blue-600">
+              <i class="far fa-comment mr-1"></i>
+              <span><%= post.comments.length %> comentários</span>
+            </button>
+            <button class="flex items-center hover:text-blue-600">
+              <i class="far fa-share-square mr-1"></i>
+              <span>Compartilhar</span>
+            </button>
+          </div>
+        </div>
+      <% }); %>
+      
+      <% if (user) { %>
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+          <form action="/posts" method="POST" enctype="multipart/form-data">
+            <textarea name="content" rows="3" class="w-full border border-gray-200 rounded p-3 mb-3" 
+                      placeholder="Compartilhe algo com a comunidade..."></textarea>
+            <div class="flex justify-between items-center">
+              <div>
+                <input type="file" name="image" id="post-image" class="hidden" accept="image/*">
+                <label for="post-image" class="text-gray-600 hover:text-blue-600 cursor-pointer mr-3">
+                  <i class="far fa-image"></i>
+                </label>
+              </div>
+              <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Publicar
+              </button>
+            </div>
+          </form>
+        </div>
+      <% } %>
+    </div>
+  </section>
+
+  <!-- Área de Publicidade Alternativa -->
+  <section class="mb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-8 text-white">
+        <h2 class="text-2xl font-bold mb-4">Aprenda no Seu Ritmo</h2>
+        <p class="mb-6">Nossos cursos são projetados para se adaptar à sua agenda. Estude quando e onde quiser, com acesso vitalício ao conteúdo.</p>
+        <div class="aspect-w-16 aspect-h-9 mb-6">
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen class="w-full h-64 rounded-lg"></iframe>
+        </div>
+        <a href="/about" class="inline-block bg-white text-blue-600 font-bold py-2 px-6 rounded-lg">
+          Saiba Mais
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <div class="text-blue-600 text-3xl mb-4">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <h3 class="font-bold mb-2">Professores Especialistas</h3>
+          <p class="text-gray-600 text-sm">Aprenda com profissionais atuantes no mercado</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <div class="text-blue-600 text-3xl mb-4">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <h3 class="font-bold mb-2">Certificação</h3>
+          <p class="text-gray-600 text-sm">Receba certificados reconhecidos</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <div class="text-blue-600 text-3xl mb-4">
+            <i class="fas fa-comments"></i>
+          </div>
+          <h3 class="font-bold mb-2">Suporte 24/7</h3>
+          <p class="text-gray-600 text-sm">Tire dúvidas a qualquer momento</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <div class="text-blue-600 text-3xl mb-4">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3 class="font-bold mb-2">Acesso Mobile</h3>
+          <p class="text-gray-600 text-sm">Estude pelo celular ou tablet</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+
+<script>
+  // Animações de scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fadeIn');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.course-card, .feature-box').forEach(el => {
+      observer.observe(el);
+    });
+  });
+</script>
+
+
+<!-- Scripts específicos da home -->
+<script>
+  // Carregar mais posts quando chegar no final da página
+  let isLoading = false;
+  let page = 1;
+  
+  window.addEventListener('scroll', () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500 && !isLoading) {
+      isLoading = true;
+      page++;
+      
+      fetch(`/api/posts?page=${page}`)
+        .then(response => response.json())
+        .then(posts => {
+          if (posts.length > 0) {
+            const postsContainer = document.querySelector('.max-w-2xl');
+            posts.forEach(post => {
+              // Criar elemento HTML para cada novo post
+              postsContainer.insertAdjacentHTML('beforeend', createPostElement(post));
+            });
+          }
+          isLoading = false;
+        });
+    }
+  });
+  
+  function createPostElement(post) {
+    return `
+      <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <!-- Estrutura do post como no template EJS -->
+      </div>
+    `;
+  }
+</script>
+</body>
+</html>

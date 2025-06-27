@@ -1,0 +1,175 @@
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+body {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+}
+h1 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+}
+h2 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+p {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+}
+
+/* Transition para o dropdown */
+.dropdown-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.dropdown-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms, transform 200ms;
+}
+.dropdown-exit {
+  opacity: 1;
+}
+.dropdown-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 200ms, transform 200ms;
+}
+
+
+/* Estilos para o footer */
+footer a, footer button {
+  transition: color 0.2s ease;
+}
+
+footer ul li {
+  position: relative;
+  padding-left: 1rem;
+}
+
+footer ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #93c5fd; /* Cor azul mais clara */
+}
+
+/* Estilos para os modais */
+.modal {
+  transition: opacity 0.3s ease;
+}
+
+/* Garantir que o modal seja acessível */
+.modal:focus {
+  outline: none;
+}
+
+/* Overlay do modal */
+.modal-overlay {
+  backdrop-filter: blur(2px);
+}
+
+/* Adicione ao final do arquivo */
+.teacher-card {
+  transition: transform 0.2s;
+}
+.teacher-card:hover {
+  transform: translateY(-5px);
+}
+
+
+/* Estilos para o formulário */
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  transition: all 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Efeito para campos de formulário */
+input, select, textarea {
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus, select:focus, textarea:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Responsividade para o formulário de registro */
+@media (max-width: 768px) {
+  .register-form {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.course-card {
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+/* Estilos base */
+.notification-item {
+  border-left: 3px solid var(--color-primary);
+  transition: all 0.3s;
+}
+
+.notification-item.unread {
+  background-color: rgba(0, 123, 255, 0.05);
+  border-left-color: var(--color-accent);
+}
+
+/* Ícones por tipo */
+.notification-icon .fa-book { color: var(--color-course); }
+.notification-icon .fa-clock { color: var(--color-deadline); }
+
+/* Prioridades (admin) */
+.alert-card.priority-5 {
+  border: 1px solid var(--color-danger);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}

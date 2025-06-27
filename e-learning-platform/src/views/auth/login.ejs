@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+       <link rel="stylesheet" href="/public/css/main.css">
+    <title>Login</title>
+     <script defer src="/public/js/main.js"></script>
+    <script defer src="/public/js/auth-check.js"></script>
+    <script defer src="/public/js/maintenance.js"></script>
+    <script defer src="/public/js/admin.js"></script>
+    <script defer src="/public/js/notifications.js"></script>
+    <script defer src="/public/js/notificationSocket.js"></script>
+    <script defer src="/public/js/otp-verification.js"></script>
+    <script defer src="/public/js/teacher-chat.js"></script>
+    <script defer src="/public/js/teacher.js"></script>
+</head>
+<body>
+
+<%- include('../partials/header', { pageTitle: 'Login' }) %>
+
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
+  <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
+    <!-- Status Online -->
+    <div class="mb-6 flex items-center justify-between">
+      <div class="flex items-center">
+        <span class="h-3 w-3 bg-green-500 rounded-full mr-2"></span>
+        <span class="text-sm text-gray-600">Atendimento online: 8h - 18h (GMT+1)</span>
+      </div>
+      <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">24/7</span>
+    </div>
+
+    <h2 class="text-2xl font-bold text-center mb-6">Iniciar Sessão</h2>
+    
+    <form action="/auth/login" method="POST" class="space-y-4">
+      <div>
+        <label for="login" class="block text-sm font-medium text-gray-700">E-mail ou Telefone</label>
+        <input
+          type="text"
+          id="login"
+          name="login"
+          required
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          placeholder="exemplo@email.com ou +244 123 456 789"
+        >
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Senha</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        >
+      </div>
+
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <input
+            id="remember-me"
+            name="remember-me"
+            type="checkbox"
+            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+          >
+          <label for="remember-me" class="ml-2 block text-sm text-gray-700">Lembrar-me</label>
+        </div>
+
+        <a href="/auth/forgot-password" class="text-sm text-blue-600 hover:text-blue-500">Esqueceu a senha?</a>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      >
+        Entrar
+      </button>
+    </form>
+  <!-- views/auth/login.ejs -->
+<div class="mt-4 text-center">
+  <a href="/auth/forgot-password" class="text-blue-600 hover:text-blue-800">Esqueceu sua senha?</a>
+</div>
+    <div class="mt-4 text-center">
+      <p class="text-sm text-gray-600">
+        Não tem conta? 
+        <a href="/auth/register" class="font-medium text-blue-600 hover:text-blue-500">Registre-se</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
+  
+</body>
+</html>

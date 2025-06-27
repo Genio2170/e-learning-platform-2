@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifion</title>
+     <script defer src="/public/js/main.js"></script>
+    <script defer src="/public/js/auth-check.js"></script>
+    <script defer src="/public/js/maintenance.js"></script>
+    <script defer src="/public/js/admin.js"></script>
+    <script defer src="/public/js/notifications.js"></script>
+    <script defer src="/public/js/notificationSocket.js"></script>
+    <script defer src="/public/js/otp-verification.js"></script>
+    <script defer src="/public/js/teacher-chat.js"></script>
+    <script defer src="/public/js/teacher.js"></script>
+</head>
+<body>
+    <div class="notifications-container">
+<!-- Cabeçalho -->
+<div class="notifications-header">
+<h3>Notificações</h3>
+<div class="notification-actions">
+<button id="mark-all-read">Marcar todas como lidas</button>
+<select id="notification-filter">
+<option value="all">Todas</option>
+<option value="unread">Não lidas</option>
+<% if (user.role === 'student') { %>
+<option value="course">Cursos</option>
+<option value="deadline">Prazos</option>
+<% } %>
+<% if (user.role === 'teacher') { %>
+<option value="submission">Envios</option>
+<% } %>
+</select>
+</div>
+</div>
+
+<!-- Lista -->
+<div class="notifications-list" id="notifications-list">
+<!-- Dinâmico via JavaScript -->
+</div>
+</div>
+
+</body>
+</html>

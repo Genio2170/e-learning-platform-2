@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+  <title>Professor</title>
+   <script defer src="/public/js/main.js"></script>
+    <script defer src="/public/js/auth-check.js"></script>
+    <script defer src="/public/js/maintenance.js"></script>
+    <script defer src="/public/js/admin.js"></script>
+    <script defer src="/public/js/notifications.js"></script>
+    <script defer src="/public/js/notificationSocket.js"></script>
+    <script defer src="/public/js/otp-verification.js"></script>
+    <script defer src="/public/js/teacher-chat.js"></script>
+    <script defer src="/public/js/teacher.js"></script>
+     <link rel="stylesheet" href="/public/css/main.css">
+  <link href="/css/main.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+<%- include('../partials/header') %>
+
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">Nossos Professores</h1>
+  
+  <!-- Filtros -->
+  <div class="bg-white p-4 rounded-lg shadow mb-6">
+    <form method="GET" class="flex flex-wrap gap-4">
+      <select name="expertise" class="border rounded px-3 py-2">
+        <option value="">Todas as disciplinas</option>
+        <% ['Matemática', 'Física', 'Química', 'História'].forEach(discipline => { %>
+          <option value="<%= discipline %>" <%= filters.expertise === discipline ? 'selected' : '' %>>
+            <%= discipline %>
+          </option>
+        <% }) %>
+      </select>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Filtrar</button>
+    </form>
+  </div>
+
+  <!-- Cards de Professores -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% teachers.forEach(teacher => { %>
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <img 
+          src="<%= teacher.teacherProfile.photo || '/images/default-profile.png' %>" 
+          alt="<%= teacher.name %>" 
+          class="w-full h-48 object-cover"
+        >
+        <div class="p-4">
+          <h3 class="font-bold text-xl"><%= teacher.name %></h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <% teacher.teacherProfile.expertise.forEach(expertise => { %>
+              <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+                <%= expertise %>
+              </span>
+            <% }) %>
+          </div>
+          <% if (isAdmin) { %>
+            <div class="mt-4 flex gap-2">
+              <button class="bg-green-500 text-white px-3 py-1 rounded text-sm">
+                Aprovar
+              </button>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
+
+
+
+</body>
+</html>

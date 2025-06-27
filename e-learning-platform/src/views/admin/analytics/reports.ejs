@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.socket.io/admin-ui/0.7.1/bundle.js"></script>
+    <title>Relatórios</title>
+</head>
+<body>
+    <!-- Em reports.ejs -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-white p-6 rounded-lg shadow">
+<h3 class="font-bold mb-4">Crescimento de Usuários</h3>
+<canvas id="userGrowthChart" height="300"></canvas>
+</div>
+<div class="bg-white p-6 rounded-lg shadow">
+<h3 class="font-bold mb-4">Status dos Cursos</h3>
+<canvas id="courseStatsChart" height="300"></canvas>
+</div>
+</div>
+
+
+<!-- reports.ejs -->
+<div class="flex gap-4 mb-6">
+<a href="/admin/analytics/export/csv"
+        class="bg-green-600 text-white px-4 py-2 rounded flex items-center gap-2">
+<i class="fas fa-file-csv"></i> Exportar CSV
+</a>
+<a href="/admin/analytics/export/pdf"
+        class="bg-red-600 text-white px-4 py-2 rounded flex items-center gap-2">
+<i class="fas fa-file-pdf"></i> Exportar PDF
+</a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Gráfico de crescimento
+  new Chart(document.getElementById('userGrowthChart'), {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+      datasets: [{
+        label: 'Novos Usuários',
+        data: [12, 19, 3, 5, 2, 3],
+        borderColor: 'rgb(59, 130, 246)',
+        tension: 0.1
+      }]
+    }
+  });
+</script>
+
+</body>
+</html>

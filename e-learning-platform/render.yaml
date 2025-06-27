@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: EducaHome
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: mongodb://localhost:27017/e-learning-platform
+        sync: false
+      - key: S3ss10N_Secr3t@2024*%#Ks8DjaLk9Vx
+        sync: false

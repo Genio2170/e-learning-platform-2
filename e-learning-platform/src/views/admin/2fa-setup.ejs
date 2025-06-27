@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+   <script src="https://cdn.socket.io/admin-ui/0.7.1/bundle.js"></script>
+    <title>recuperar admin</title>
+</head>
+<body>
+   <div class="text-center">
+<h2 class="text-xl font-bold mb-4">Configurar 2FA</h2>
+<img src="<%= qrCodeUrl %>" class="mx-auto mb-4">
+<p class="mb-2">Códigos de backup (guarde em lugar seguro):</p>
+<ul class="grid grid-cols-2 gap-2 mb-6">
+<% backupCodes.forEach(code => { %>
+<li class="bg-gray-100 p-2 font-mono"><%= code %></li>
+<% }) %>
+</ul>
+<form action="/admin/verify-2fa" method="POST">
+<input type="text" name="token" placeholder="Código 2FA" required>
+<button type="submit">Verificar</button>
+</form>
+</div>
+ 
+</body>
+</html>

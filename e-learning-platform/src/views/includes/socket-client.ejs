@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sockiet</title>
+</head>
+<body>
+    <script>
+  const collaborationSocket = io('/collaboration', {
+    auth: {
+      token: '<%= user.authToken %>'
+    }
+  });
+
+  collaborationSocket.on('content_updated', (data) => {
+    // Atualizar editor colaborativo
+    if (data.section === currentEditingSection) {
+      editor.setValue(data.content);
+      showNotification(`Conteúdo atualizado por ${data.updatedBy}`);
+    }
+  });
+
+  function joinCourseRoom(courseId) {
+    collaborationSocket.emit('join_course_room', {
+      courseId,
+      userId: '<%= user._id %>'
+    });
+  }
+</script>
+
+</body>
+</html>

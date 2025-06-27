@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+    <title>Sobre - EducaHome</title>
+    <link rel="stylesheet" href="/public/css/main.css">
+    <script defer src="/public/js/main.js"></script>
+    <script defer src="/public/js/auth-check.js"></script>
+    <script defer src="/public/js/maintenance.js"></script>
+    <script defer src="/public/js/admin.js"></script>
+    <script defer src="/public/js/notifications.js"></script>
+    <script defer src="/public/js/notificationSocket.js"></script>
+    <script defer src="/public/js/otp-verification.js"></script>
+    <script defer src="/public/js/teacher-chat.js"></script>
+    <script defer src="/public/js/teacher.js"></script>
+</head>
+<body>
+    <%- include('partials/header', { currentPage: 'about' }) %>
+
+<main class="container mx-auto px-4 py-8">
+  <!-- Cabeçalho da Página -->
+  <div class="text-center mb-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-4">Sobre Nossa Plataforma</h1>
+    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Conectando alunos e professores em uma experiência de aprendizagem transformadora</p>
+  </div>
+
+  <!-- Seção de História da Empresa -->
+  <section class="mb-16">
+    <div class="flex flex-col lg:flex-row items-center gap-8 mb-12">
+      <div class="lg:w-1/2">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Nossa História</h2>
+        <div class="prose max-w-none">
+                   <p class="text-gray-700 mb-4">A <span class="text-blue-700">Educahome</span>  
+ nasceu da necessidade de revolucionar o ensino online em Angola. Começamos como um pequeno projeto educacional e hoje nos tornamos referência em e-learning no país.</p>
+          <p class="text-gray-700 mb-4">Em Junho de 2025, lançamos nossa primeira versão da plataforma, conectando inicialmente 50 professores a mais de 500 alunos. Hoje, contamos com uma comunidade vibrante de educadores e aprendizes.</p>
+          <p class="text-gray-700">Nossa jornada tem sido marcada por inovação constante e compromisso com a qualidade educacional, sempre buscando oferecer a melhor experiência para nossos usuários.</p>
+        </div>
+      </div>
+      <div class="lg:w-1/2">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-blue-100 rounded-lg overflow-hidden h-48">
+            <img src="/images/about/history-1.jpg" alt="Fundação da empresa" class="w-full h-full object-cover">
+          </div>
+          <div class="bg-blue-100 rounded-lg overflow-hidden h-48">
+            <img src="/images/about/history-2.jpg" alt="Primeira versão da plataforma" class="w-full h-full object-cover">
+          </div>
+          <div class="bg-blue-100 rounded-lg overflow-hidden h-48">
+            <img src="/images/about/history-3.jpg" alt="Equipe inicial" class="w-full h-full object-cover">
+          </div>
+          <div class="bg-blue-100 rounded-lg overflow-hidden h-48">
+            <img src="/images/about/history-4.jpg" alt="Evento de lançamento" class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visão, Missão e Valores -->
+  <section class="mb-16 bg-blue-50 rounded-xl p-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Nossos Princípios</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Missão -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+        <div class="text-blue-600 text-4xl mb-4">
+          <i class="fas fa-bullseye"></i>
+        </div>
+        <h3 class="font-bold text-xl mb-3">Missão</h3>
+        <p class="text-gray-700">Democratizar o acesso à educação de qualidade através de tecnologia inovadora, conectando alunos e professores em uma plataforma interativa e acessível.</p> 
+           <p class="text-gray-700 mt-2">Assegurar que os nossos educandos ultrapassem todas e quaisquer dificuldades académicas, tenham acesso à cursos técnicos e linguísticos sem saírem de casa.</p>
+        <p class="text-gray-700 mt-2">Proporcionar e garantir que os novos académicos tenham um senso científico e lógico sobre o ambiente e componentes relacionados às suas vidas e actividades.</p>
+            <p  class="text-gray-700 mt-2">Desenvolver e explorar o raciocínio nas ciências exactas, artes e outras habilidade.</p>
+             <p class="text-gray-700 mt-2">É fundamental para a <span class="text-blue-700">Educahome</span>  que os nossos educandos ganhem confiança nas suas ações e ultrapassem as barreiras que não os tornam excelentes.</p>
+      </div>
+      
+      <!-- Visão -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+        <div class="text-blue-600 text-4xl mb-4">
+          <i class="fas fa-eye"></i>
+        </div>
+        <h3 class="font-bold text-xl mb-3">Visão</h3>
+        <p class="text-gray-700">Ser a principal referência em educação online em Angola até 2030, impactando positivamente a vida de mais de 1 milhão de estudantes.</p>
+          <p class="text-gray-700 mt-2">Temos uma visão muito digital do ensino angolano, pois que, a nova era é exatamente essa.</p>
+           <p class="text-gray-700 mt-2">Trouxemos à sociedade uma Instituição onde há uma variedade de interesses colectivos e individuais, assuntos técnicos e agregativos à indivíduos de qualquer idade.</p>
+            <p class="text-gray-700 mt-2">Faça parte da nossa família e acompanha a revolução da educação angolana.</p>
+      </div>
+      
+      <!-- Valores -->
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+        <div class="text-blue-600 text-4xl mb-4">
+          <i class="fas fa-heart"></i>
+        </div>
+        <h3 class="font-bold text-xl mb-3">Valores</h3>
+        <ul class="text-left text-gray-700 space-y-2">
+          <li class="flex items-start">
+            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+            <span>Excelência Educacional</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+            <span>Inovação Tecnológica</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+            <span>Integridade e Transparência</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+            <span>Acessibilidade e Inclusão</span>
+          </li>
+        </ul>
+
+
+          <p class="text-gray-700 mt-2">E ainda uma capacitação sublime para vastas áreas técnicas profissionais.</p>
+          <p  class="text-gray-700 mt-2">Quer ser diferenciado e influente? A <span class="text-blue-700">Educahome</span> é a solução.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Equipe Fundadora -->
+  <section class="mb-16">
+    <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Conheça Nossa Equipe Fundadora</h2>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Membro 1 -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden text-center">
+        <div class="h-64 bg-blue-100 overflow-hidden">
+          <img src="/public/images/Pinto.jpg" alt="Fundador 1" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <h3 class="font-bold text-xl mb-1">António Francisco Capaxi</h3>
+          <p class="text-blue-600 mb-3">CEO & Fundador</p>
+          <p class="text-gray-600 text-sm">  Residente em Luanda- Cassequel.Técnico médio em Matemática e Física - pelo Instituto Médio Normal de Educação Marista em 2022.
+Estudante universitário em Direito - pela Universidade Agostinho Neto.</p>
+          <div class="flex justify-center space-x-3 mt-4">
+            <a href="#" class="text-blue-600 hover:text-blue-800">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="text-blue-600 hover:text-blue-800">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Membro 2 -->
+      <!-- <div class="bg-white rounded-lg shadow-md overflow-hidden text-center">
+        <div class="h-64 bg-blue-100 overflow-hidden">
+          <img src="/images/team/team-2.jpg" alt="Fundadora 2" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <h3 class="font-bold text-xl mb-1">Ana Bela</h3>
+          <p class="text-blue-600 mb-3">Diretora Pedagógica</p>
+          <p class="text-gray-600 text-sm">Pedagoga com especialização em educação digital e design instrucional.</p>
+          <div class="flex justify-center space-x-3 mt-4">
+            <a href="#" class="text-blue-600 hover:text-blue-800">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="text-blue-600 hover:text-blue-800">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div> -->
+      
+      <!-- Membro 3 -->
+      <!-- <div class="bg-white rounded-lg shadow-md overflow-hidden text-center">
+        <div class="h-64 bg-blue-100 overflow-hidden">
+          <img src="/images/team/team-3.jpg" alt="Fundador 3" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <h3 class="font-bold text-xl mb-1">Miguel Costa</h3>
+          <p class="text-blue-600 mb-3">CTO</p>
+          <p class="text-gray-600 text-sm">Engenheiro de software com vasta experiência em desenvolvimento de plataformas educacionais.</p>
+          <div class="flex justify-center space-x-3 mt-4">
+            <a href="#" class="text-blue-600 hover:text-blue-800">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="text-blue-600 hover:text-blue-800">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+      </div> -->
+      
+      <!-- Membro 4 -->
+      <!-- <div class="bg-white rounded-lg shadow-md overflow-hidden text-center">
+        <div class="h-64 bg-blue-100 overflow-hidden">
+          <img src="/images/team/team-4.jpg" alt="Fundadora 4" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <h3 class="font-bold text-xl mb-1">Luísa Fernandes</h3>
+          <p class="text-blue-600 mb-3">Diretora de Operações</p>
+          <p class="text-gray-600 text-sm">Especialista em gestão de projetos educacionais e operações em escala.</p>
+          <div class="flex justify-center space-x-3 mt-4">
+            <a href="#" class="text-blue-600 hover:text-blue-800">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="text-blue-600 hover:text-blue-800">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- Imagens Institucionais -->
+  <section class="mb-16">
+    <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Nossa Cultura e Espaço</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="md:col-span-2 lg:col-span-2 bg-blue-100 rounded-xl overflow-hidden h-64 md:h-80">
+        <img src="/images/about/office-1.jpg" alt="Nosso escritório" class="w-full h-full object-cover">
+      </div>
+      <div class="bg-blue-100 rounded-xl overflow-hidden h-64 md:h-80">
+        <img src="/images/about/team-meeting.jpg" alt="Reunião de equipe" class="w-full h-full object-cover">
+      </div>
+      <div class="bg-blue-100 rounded-xl overflow-hidden h-64 md:h-80">
+        <img src="/images/about/event-1.jpg" alt="Evento educacional" class="w-full h-full object-cover">
+      </div>
+      <div class="bg-blue-100 rounded-xl overflow-hidden h-64 md:h-80">
+        <img src="/images/about/office-2.jpg" alt="Espaço colaborativo" class="w-full h-full object-cover">
+      </div>
+      <div class="md:col-span-2 lg:col-span-2 bg-blue-100 rounded-xl overflow-hidden h-64 md:h-80">
+        <img src="/images/about/workshop.jpg" alt="Workshop interno" class="w-full h-full object-cover">
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="bg-blue-800 text-white rounded-xl p-8 md:p-12 text-center">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4">Junte-se a Nossa Jornada Educacional</h2>
+    <p class="text-xl text-blue-100 mb-6 max-w-3xl mx-auto">Seja um professor parceiro ou comece sua jornada de aprendizado hoje mesmo</p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <% if (!user) { %>
+        <a href="/auth/register?role=student" class="bg-white hover:bg-blue-50 text-blue-600 font-bold py-3 px-6 rounded-lg">
+          Cadastre-se como Aluno
+        </a>
+        <a href="/auth/register?role=teacher" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg border border-white">
+          Inscreva-se como Professor
+        </a>
+      <% } else { %>
+        <a href="/courses" class="bg-white hover:bg-blue-50 text-blue-600 font-bold py-3 px-6 rounded-lg">
+          Explorar Cursos
+        </a>
+        <a href="/contact" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg border border-white">
+          Fale Conosco
+        </a>
+      <% } %>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+
+</body>
+</html>

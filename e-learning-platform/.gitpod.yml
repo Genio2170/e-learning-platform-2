@@ -1,0 +1,26 @@
+image: node:18
+
+tasks:
+  - init: npm install
+  - command: npm start
+
+
+
+ports:
+  - port: 3000
+    onOpen: open-preview
+    visibility: public
+
+
+
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint
+    - esbenp.prettier-vscode
+    - ms-azuretools.vscode-docker
+    - eamodio.gitlens
+    - pkief.material-icon-theme
+    - ms-vscode.vscode-typescript-next
+    - ms-vscode.vscode-typescript-tslint-plugin
+    - redhat.vscode-yaml
+    - vscode-icons-team.vscode-iconsgit init

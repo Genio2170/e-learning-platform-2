@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+       <link rel="stylesheet" href="/public/css/main.css">
+    <title>menu</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body class="<%= homePage ? 'home-page' : '' %>">
+<header class="<%= homePage ? 'absolute top-0 left-0 right-0 bg-transparent' : 'bg-white shadow' %>">
+
+  <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center">
+      <img src="/public/images/logotipo - Copia.png" alt="Logo" class="w-10 h-10">
+      
+    </a>
+    
+    <!-- Menu Desktop -->
+    <nav class="hidden md:flex items-center space-x-6">
+      <a href="/" class="hover:text-blue-200 <%= currentPage === 'home' ? 'font-bold' : '' %>">Início</a>
+      <a href="/about" class="hover:text-blue-200 <%= currentPage === 'about' ? 'font-bold' : '' %>">Sobre</a>
+      <a href="/courses" class="hover:text-blue-200 <%= currentPage === 'courses' ? 'font-bold' : '' %>">Cursos</a>
+      <a href="/teachers" class="hover:text-blue-200 <%= currentPage === 'teachers' ? 'font-bold' : '' %>">Professores</a>
+      
+      <!-- Dropdown da Conta -->
+      <div class="relative group" x-data="{ open: false }">
+        <button @click="open = !open" class="hover:text-blue-200 flex items-center focus:outline-none">
+          <% if (user) { %>
+            <img src="<%= user.photo || '/images/default-avatar.jpg' %>" class="w-8 h-8 rounded-full mr-2">
+            <span><%= user.fullName.split(' ')[0] %></span>
+          <% } else { %>
+            <span>Conta</span>
+          <% } %>
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        
+        <!-- Itens do Dropdown -->
+        <div x-show="open" @click.away="open = false" 
+             class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+          <% if (!user) { %>
+            <!-- Usuário não logado -->
+            <a href="/auth/login" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Login</a>
+            <a href="/auth/register" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Cadastrar</a>
+            <a href="/auth/forgot-password" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Recuperar Senha</a>
+          <% } else { %>
+            <!-- Usuário logado - opções comuns -->
+            <a href="/users/profile" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Meu Perfil</a>
+            <a href="/users/dashboard" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Painel</a>
+            
+            <% if (user.role === 'teacher') { %>
+              <!-- Opções específicas para professores -->
+              <a href="/teachers/live-sessions" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Minhas Aulas</a>
+              <a href="/teachers/students" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Meus Alunos</a>
+            <% } %>
+            
+            <% if (user.role === 'admin') { %>
+              <!-- Opções específicas para admin -->
+              <a href="/admin/dashboard" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Painel Admin</a>
+              <a href="/admin/approvals" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Aprovações</a>
+            <% } %>
+            
+            <div class="border-t border-gray-200 my-1"></div>
+            <a href="/auth/logout" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Sair</a>
+          <% } %>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Menu Mobile Button -->
+    <button class="md:hidden text-white focus:outline-none" id="mobile-menu-button">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </div>
+  
+  <!-- Menu Mobile -->
+  <div class="md:hidden hidden bg-blue-700 px-4 py-2" id="mobile-menu">
+    <a href="/" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Início</a>
+    <a href="/about" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Sobre</a>
+    <a href="/courses" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Cursos</a>
+    <a href="/teachers" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Professores</a>
+    
+    <% if (!user) { %>
+      <div class="border-t border-blue-600 mt-2 pt-2">
+        <a href="/auth/login" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Login</a>
+        <a href="/auth/register" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Cadastrar</a>
+        <a href="/auth/forgot-password" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Recuperar Senha</a>
+      </div>
+    <% } else { %>
+      <div class="border-t border-blue-600 mt-2 pt-2">
+        <a href="/users/profile" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Meu Perfil</a>
+        <a href="/users/dashboard" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Painel</a>
+        
+        <% if (user.role === 'teacher') { %>
+          <a href="/teachers/live-sessions" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Minhas Aulas</a>
+          <a href="/teachers/students" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Meus Alunos</a>
+        <% } %>
+        
+        <% if (user.role === 'admin') { %>
+          <a href="/admin/dashboard" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Painel Admin</a>
+          <a href="/admin/approvals" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Aprovações</a>
+        <% } %>
+        
+        <a href="/auth/logout" class="block py-2 text-white hover:bg-blue-600 rounded px-2">Sair</a>
+      </div>
+    <% } %>
+  </div>
+</header>
+
+<script>
+  // Menu mobile toggle
+  document.getElementById('mobile-menu-button').addEventListener('click', function() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('hidden');
+  });
+</script>
+</body>
+</html>

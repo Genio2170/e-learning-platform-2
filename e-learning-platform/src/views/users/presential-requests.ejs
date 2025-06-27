@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+    <title>Solicitar aulas Presenciais</title>
+       <link rel="stylesheet" href="/public/css/main.css">
+        <script defer src="/public/js/main.js"></script>
+    <script defer src="/public/js/auth-check.js"></script>
+    <script defer src="/public/js/maintenance.js"></script>
+    <script defer src="/public/js/admin.js"></script>
+    <script defer src="/public/js/notifications.js"></script>
+    <script defer src="/public/js/notificationSocket.js"></script>
+    <script defer src="/public/js/otp-verification.js"></script>
+    <script defer src="/public/js/teacher-chat.js"></script>
+    <script defer src="/public/js/teacher.js"></script>
+</head>
+<body>
+    <!-- views/users/presential-requests.ejs -->
+<div class="container mx-auto px-4 py-8">
+  <h2 class="text-2xl font-bold mb-6">Aulas Presenciais</h2>
+  
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Nova Solicitação</h3>
+      <form id="requestForm" class="space-y-4">
+        <div>
+          <label class="block text-gray-700 mb-1">Matéria/Disciplina</label>
+          <input type="text" name="subject" required 
+                 class="w-full px-3 py-2 border rounded">
+        </div>
+        
+        <div>
+          <label class="block text-gray-700 mb-1">Descrição</label>
+          <textarea name="description" rows="4" required
+                    class="w-full px-3 py-2 border rounded"></textarea>
+        </div>
+        
+        <div>
+          <label class="block text-gray-700 mb-1">Data Preferencial (opcional)</label>
+          <input type="date" name="preferredDate" 
+                 class="w-full px-3 py-2 border rounded">
+        </div>
+        
+        <div>
+          <label class="block text-gray-700 mb-1">Local Preferencial (opcional)</label>
+          <input type="text" name="preferredLocation" 
+                 class="w-full px-3 py-2 border rounded">
+        </div>
+        
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Enviar Solicitação
+        </button>
+      </form>
+    </div>
+    
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Minhas Solicitações</h3>
+      
+      <% if (requests.length === 0) { %>
+        <p class="text-gray-600">Nenhuma solicitação encontrada.</p>
+      <% } else { %>
+        <div class="space-y-4">
+          <% requests.forEach(request => { %>
+            <div class="border rounded-lg p-4">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="font-semibold"><%= request.subject %></h4>
+                  <p class="text-sm text-gray-600"><%= request.description %></p>
+                </div>
+                <span class="px-2 py-1 rounded-full text-xs 
+                  <%= request.status === 'approved' ? 'bg-green-100 text-green-800' : 
+                     request.status === 'rejected' ? 'bg-red-100 text-red-800' : 
+                     request.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                     'bg-yellow-100 text-yellow-800' %>">
+                  <%= request.status === 'approved' ? 'Aprovada' : 
+                     request.status === 'rejected' ? 'Rejeitada' : 
+                     request.status === 'completed' ? 'Concluída' : 'Pendente' %>
+                </span>
+              </div>
+              
+              <% if (request.preferredDate) { %>
+                <div class="mt-2 text-sm">
+                  <span class="font-medium">Data preferida:</span>
+                  <%= new Date(request.preferredDate).toLocaleDateString() %>
+                </div>
+              <% } %>
+              
+              <% if (request.assignedTeacher) { %>
+                <div class="mt-2 text-sm">
+                  <span class="font-medium">Professor:</span>
+                  <%= request.assignedTeacher.fullName %>
+                </div>
+              <% } %>
+              
+              <% if (request.adminFeedback) { %>
+                <div class="mt-2 p-2 bg-gray-50 rounded">
+                  <p class="text-sm font-medium">Feedback do Administrador:</p>
+                  <p class="text-sm"><%= request.adminFeedback %></p>
+                </div>
+              <% } %>
+              
+              <div class="mt-4">
+                <button onclick="toggleMessages('<%= request._id %>')" 
+                        class="text-blue-600 text-sm hover:underline">
+                  Ver mensagens (<%= request.messages.length %>)
+                </button>
+                
+                <div id="messages-<%= request._id %>" class="hidden mt-2 border-t pt-2">
+                  <% if (request.messages.length === 0) { %>
+                    <p class="text-sm text-gray-600">Nenhuma mensagem ainda.</p>
+                  <% } else { %>
+                    <div class="space-y-3">
+                      <% request.messages.forEach(msg => { %>
+                        <div class="text-sm">
+                          <div class="flex justify-between">
+                            <span class="font-medium">
+                              <%= msg.sender._id.equals(user._id) ? 'Você' : 
+                                 msg.sender.role === 'admin' ? 'Administrador' : 
+                                 msg.sender.fullName %>
+                            </span>
+                            <span class="text-gray-500">
+                              <%= new Date(msg.createdAt).toLocaleString() %>
+                            </span>
+                          </div>
+                          <p class="mt-1"><%= msg.content %></p>
+                        </div>
+                      <% }); %>
+                    </div>
+                  <% } %>
+                  
+                  <form class="mt-3 flex" 
+                        onsubmit="sendMessage(event, '<%= request._id %>')">
+                    <input type="text" name="content" required 
+                           class="flex-grow px-2 py-1 border rounded-l">
+                    <button type="submit" 
+                            class="bg-blue-600 text-white px-3 py-1 rounded-r">
+                      Enviar
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Alternar visibilidade das mensagens
+  function toggleMessages(requestId) {
+    const element = document.getElementById(`messages-${requestId}`);
+    element.classList.toggle('hidden');
+  }
+  
+  // Enviar mensagem
+  async function sendMessage(e, requestId) {
+    e.preventDefault();
+    const content = e.target.content.value;
+    
+    try {
+      const response = await fetch(`/presential-requests/${requestId}/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content })
+      });
+      
+      if (response.ok) {
+        window.location.reload();
+      } else {
+        const error = await response.json();
+        alert('Erro: ' + error.error);
+      }
+    } catch (err) {
+      alert('Erro ao enviar mensagem: ' + err.message);
+    }
+  }
+  
+  // Enviar solicitação
+  document.getElementById('requestForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const data = {
+      subject: formData.get('subject'),
+      description: formData.get('description'),
+      preferredDate: formData.get('preferredDate'),
+      preferredLocation: formData.get('preferredLocation')
+    };
+    
+    try {
+      const response = await fetch('/presential-requests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+      
+      if (response.ok) {
+        alert('Solicitação enviada com sucesso!');
+        window.location.reload();
+      } else {
+        const error = await response.json();
+        alert('Erro: ' + error.error);
+      }
+    } catch (err) {
+      alert('Erro ao enviar solicitação: ' + err.message);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de notificações</title>
+    <script src="https://cdn.socket.io/admin-ui/0.7.1/bundle.js"></script>
+</head>
+<body>
+   <!-- views/admin/notifications-dashboard.ejs -->
+<div class="notification-stats">
+<div class="stat-card">
+<h4>Notificações Hoje</h4>
+<div id="todayChart" data-metrics="<%= JSON.stringify(metrics.today) %>"></div>
+</div>
+<div class="stat-card">
+<h4>Taxa de Leitura</h4>
+<p><%= metrics.readRate %>%</p>
+</div>
+</div>
+<script>
+       // Implementar batching para notificações em massa
+   setInterval(() => {
+     processNotificationQueue();
+   }, 5000); // Processa a cada 5 segundos
+
+</script> 
+
+<form id="notification-preferences">
+<h3>Preferências de Notificação</h3>
+
+<div class="preference-group">
+<h4>Email</h4>
+<label>
+<input type="checkbox" name="email.courseUpdates"<%= prefs.notifications.email.courseUpdates ? 'checked' : '' %>>
+      Atualizações de Cursos
+</label>
+<label>
+<input type="checkbox" name="email.deadlines"<%= prefs.notifications.email.deadlines ? 'checked' : '' %>>
+      Lembretes de Prazos
+</label>
+</div>
+
+<div class="preference-group">
+<h4>Notificações Push</h4>
+<label>
+<input type="checkbox" name="push.enabled"<%= prefs.notifications.push.enabled ? 'checked' : '' %>>
+      Ativar Notificações
+</label>
+<label>
+<input type="checkbox" name="push.sound"<%= prefs.notifications.push.sound ? 'checked' : '' %>>
+      Som de Notificação
+</label>
+</div>
+
+<button type="submit">Salvar Configurações</button>
+</form>
+
+</body>
+</html>

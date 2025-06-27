@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itens da notificação</title>
+     <script defer src="/public/js/main.js"></script>
+    <script defer src="/public/js/auth-check.js"></script>
+    <script defer src="/public/js/maintenance.js"></script>
+    <script defer src="/public/js/admin.js"></script>
+    <script defer src="/public/js/notifications.js"></script>
+    <script defer src="/public/js/notificationSocket.js"></script>
+    <script defer src="/public/js/otp-verification.js"></script>
+    <script defer src="/public/js/teacher-chat.js"></script>
+    <script defer src="/public/js/teacher.js"></script>
+</head>
+<body>
+   <script type="text/template" id="notification-template">
+<div class="notification-item <%= isRead ? 'read' : 'unread' %>"
+       data-id="<%= _id %>"
+       data-type="<%= type %>">
+<div class="notification-icon">
+<% if (type.includes('course')) { %>
+<i class="fas fa-book"></i>
+<% } else if (type.includes('deadline')) { %>
+<i class="fas fa-clock"></i>
+<% } %>
+</div>
+<div class="notification-content">
+<h4><%= title %></h4>
+<p><%= message %></p>
+<small><%= new Date(createdAt).toLocaleString() %></small>
+<% if (metadata?.courseId) { %>
+<a href="/courses/<%= metadata.courseId %>" class="notification-link">Ver curso</a>
+<% } %>
+</div>
+<% if (!isRead) { %>
+<button class="mark-read-btn">✓</button>
+<% } %>
+</div>
+</script>
+ 
+</body>
+</html>

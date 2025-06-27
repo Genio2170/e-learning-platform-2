@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+    <title>Painel do Usuario</title>
+     <script defer src="/public/js/main.js"></script>
+    <script defer src="/public/js/auth-check.js"></script>
+    <script defer src="/public/js/maintenance.js"></script>
+    <script defer src="/public/js/admin.js"></script>
+    <script defer src="/public/js/notifications.js"></script>
+    <script defer src="/public/js/notificationSocket.js"></script>
+    <script defer src="/public/js/otp-verification.js"></script>
+    <script defer src="/public/js/teacher-chat.js"></script>
+    <script defer src="/public/js/teacher.js"></script>
+       <link rel="stylesheet" href="/public/css/main.css">
+</head>
+<body>
+    <%- include('../partials/header', { title: 'Dashboard' }) %>
+
+<div class="container mx-auto px-4 py-8">
+<div class="flex items-center justify-between mb-8">
+<h1 class="text-2xl font-bold">Bem-vindo, <%= user.name %>!</h1>
+<div class="flex items-center space-x-4">
+<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+<%= user.role === 'student' ? 'Estudante' : 'Usuário' %>
+</span>
+</div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="bg-white p-6 rounded-lg shadow">
+<h2 class="text-lg font-semibold mb-2">Cursos Inscritos</h2>
+<p class="text-3xl font-bold"><%= enrolledCourses.length %></p>
+</div>
+
+<div class="bg-white p-6 rounded-lg shadow">
+<h2 class="text-lg font-semibold mb-2">Aulas Hoje</h2>
+<p class="text-3xl font-bold"><%= todaysSessions.length %></p>
+</div>
+
+<div class="bg-white p-6 rounded-lg shadow">
+<h2 class="text-lg font-semibold mb-2">Notificações</h2>
+<p class="text-3xl font-bold"><%= unreadNotifications %></p>
+</div>
+</div>
+
+<div class="bg-white rounded-lg shadow overflow-hidden">
+<div class="p-6 border-b">
+<h2 class="text-xl font-bold">Próximas Atividades</h2>
+</div>
+
+<div class="divide-y">
+<% activities.forEach(activity => { %>
+<div class="p-6 flex items-center">
+<div class="flex-1">
+<h3 class="font-semibold"><%= activity.title %></h3>
+<p class="text-gray-600 text-sm"><%= activity.date.toLocaleString() %></p>
+</div>
+<a href="<%= activity.link %>"
+             class="text-blue-600 hover:text-blue-800">Ver detalhes</a>
+</div>
+<% }) %>
+</div>
+</div>
+</div>
+
+<%- include('../partials/footer') %>
+
+</body>
+</html>

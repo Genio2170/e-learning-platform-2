@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+ <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+    <title>Aluno painel
+
+    </title>
+     <script defer src="/public/js/main.js"></script>
+    <script defer src="/public/js/auth-check.js"></script>
+    <script defer src="/public/js/maintenance.js"></script>
+    <script defer src="/public/js/admin.js"></script>
+    <script defer src="/public/js/notifications.js"></script>
+    <script defer src="/public/js/notificationSocket.js"></script>
+    <script defer src="/public/js/otp-verification.js"></script>
+    <script defer src="/public/js/teacher-chat.js"></script>
+    <script defer src="/public/js/teacher.js"></script>
+    <link rel="stylesheet" href="/public/css/main.css ">
+</head>
+<body>
+   <%- include('../../partials/header') %>
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 p-6">
+  <!-- Sidebar -->
+  <div class="md:col-span-1 bg-white rounded-lg shadow p-4">
+    <div class="text-center mb-6">
+      <img src="<%= user.profilePhoto || '/images/default-profile.png' %>" 
+           class="w-24 h-24 rounded-full mx-auto mb-2">
+      <h3 class="font-bold"><%= user.fullName %></h3>
+      <p class="text-sm text-gray-500">Estudante</p>
+    </div>
+
+    <nav>
+      <a href="/student" class="block py-2 px-4 bg-blue-100 text-blue-700 rounded mb-2">Dashboard</a>
+      <a href="/student/courses" class="block py-2 px-4 hover:bg-gray-100 rounded mb-2">Meus Cursos</a>
+      <a href="/student/chat" class="block py-2 px-4 hover:bg-gray-100 rounded mb-2">Chat com Professores</a>
+      <a href="/student/notifications" class="block py-2 px-4 hover:bg-gray-100 rounded mb-2">
+        Notificações <% if(notifications.length > 0) { %>
+          <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full ml-2">
+            <%= notifications.length %>
+          </span>
+        <% } %>
+      </a>
+      <a href="/student/payment-status" class="block py-2 px-4 hover:bg-gray-100 rounded mb-2">Status de Pagamento</a>
+    </nav>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <div class="md:col-span-3 space-y-6">
+    <% if(hasPendingPayments) { %>
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+        <p>Você tem pagamentos pendentes de aprovação. <a href="/student/payment-status" class="text-blue-600">Ver detalhes</a></p>
+      </div>
+    <% } %>
+
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-xl font-bold mb-4">Seus Cursos Ativos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <% courses.forEach(course => { %>
+          <div class="border rounded-lg p-4 hover:shadow-md transition">
+            <h3 class="font-semibold"><%= course.name %></h3>
+            <p class="text-sm text-gray-600"><%= course.teacher.name %></p>
+            <a href="/courses/<%= course._id %>" class="text-blue-600 text-sm mt-2 inline-block">Acessar Curso</a>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-xl font-bold mb-4">Últimas Notificações</h2>
+      <% if(notifications.length > 0) { %>
+        <ul class="space-y-3">
+          <% notifications.forEach(notif => { %>
+            <li class="border-b pb-2">
+              <p class="font-medium"><%= notif.title %></p>
+              <p class="text-sm text-gray-600"><%= notif.message %></p>
+              <p class="text-xs text-gray-400"><%= notif.createdAt.toLocaleDateString() %></p>
+            </li>
+          <% }) %>
+        </ul>
+        <a href="/student/notifications" class="text-blue-600 text-sm mt-4 inline-block">Ver todas</a>
+      <% } else { %>
+        <p class="text-gray-500">Nenhuma notificação recente.</p>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<div class="student-notifications">
+<h2>Suas Atividades</h2>
+<div class="deadline-notifications">
+<% notifications.filter(n => n.type.includes('deadline')).forEach(notif => { %>
+<div class="urgent-notification">
+<span class="alert-icon">⚠️</span>
+<p><%= notif.message %></p>
+<a href="/assignments/<%= notif.metadata.assignmentId %>">Ver tarefa</a>
+</div>
+<% }); %>
+</div>
+<%- include('../includes/notifications-panel') %>
+</div>
+
+
+<%- include('../../partials/footer') %> 
+</body>
+</html>
